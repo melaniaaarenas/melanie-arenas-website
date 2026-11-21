@@ -1,0 +1,142 @@
+{
+  "sectionOrder": ["education", "about", "skills", "projects", "experience"],
+  "hero": {
+    "eyebrow": "Open to internships & full-time roles",
+    "name": "Melanie Arenas",
+    "role": "Business Analytics & AI student at UT Dallas",
+    "intro": "I build AI agents and data-driven tools, from a real-time scam call detector at HackUTD 2026 to a personal workflow agent. I'm ready to take everything I've learned and grow into something bigger.",
+    "photo": "/photo.png",
+    "resume": "/nov.11.resume.pdf",
+    "linkedin": "https://www.linkedin.com/in/melanie-arenas-618b6b223",
+    "email": "melaniejackarenas@gmail.com"
+  },
+  "about": {
+    "title": "About Me",
+    "paragraphs": [
+      "I'm a native of the **South Side of Chicago**, now studying **Business Analytics and AI** at The University of Texas at Dallas. I've always been the person who wants to know *why* the numbers look the way they do. To me, **data tells a story**, and I love finding it, cleaning it up, and turning it into something people can actually use.",
+      "My goal is to **build financial apps** that make money easier to understand and manage, especially for people who've never had the right tools. I also love **presenting and teaching**. Some of my favorite moments are walking my friends and classmates through a new idea and watching it click.",
+      "Before tech, I spent **5 years in insurance and sales**, which taught me how to listen, explain complex things simply, and solve problems for real people. Looking back, I've grown so much on this journey, and **I can't wait to see what's next**."
+    ],
+    "note": "Eligible to work in the US for internships and full-time with no restrictions."
+  },
+  "education": {
+    "title": "Education",
+    "school": "The University of Texas at Dallas",
+    "degree": "Bachelor of Science, Business Analytics and AI",
+    "date": "Graduation Dec 2027",
+    "details": [
+      { "label": "Professional Development", "text": "Database Fundamentals for Analytics, University of Texas at Dallas" },
+      { "label": "Relevant Coursework", "text": "Introduction to Python, Quantitative Business Analytics" }
+    ]
+  },
+  "experience": {
+    "title": "Experience",
+    "jobs": [
+      {
+        "title": "Admissions Representative",
+        "company": "PHS",
+        "location": "Richardson, TX",
+        "dates": "April 2026 – Present",
+        "points": [
+          "Collect and verify demographic, clinical, and insurance information to support accurate and timely patient admissions.",
+          "Coordinate with patients, families, and internal teams to resolve documentation needs and support a smooth admissions experience."
+        ]
+      },
+      {
+        "title": "Financial Counselor",
+        "company": "Texas Oncology",
+        "location": "Plano, TX",
+        "dates": "January 2024 – March 2026",
+        "points": [
+          "Audited insurance coverage and account documentation to identify denial risks, resolve discrepancies, and help prevent claim denials before treatment.",
+          "Resolved complex insurance and payment issues through problem-solving, account review, and healthcare compliance knowledge.",
+          "Reviewed pay stubs, W-2 forms, and financial records to determine assistance eligibility, counsel patients, and establish affordable payment plans."
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projects",
+    "items": [
+      {
+        "tag": "HackUTD 2026 · Nov 2026",
+        "title": "Safe Signal: AI-Powered Live Scam Call Detection",
+        "points": [
+          "Built a real-time scam call protection tool in 24 hours that analyzes the caller's voice to detect AI-generated speech and scans the conversation for scam language patterns within the first seconds of a call.",
+          "Designed an AI agent using NVIDIA Nemotron that verifies caller identity and number reputation, plus a one-tap flow that lowers the caller's volume, privately warns the user, and blocks and reports the number.",
+          "Created a synthetic dataset of scam and legitimate calls for testing and applied privacy-by-design principles by analyzing calls without storing recordings."
+        ],
+        "stats": [],
+        "link": "https://desiamigos.onrender.com/",
+        "linkText": "View live site",
+        "wide": true
+      },
+      {
+        "tag": "Team Project",
+        "title": "Scan & Personalize: AI-Powered Beauty Discovery at Sephora",
+        "points": [
+          "Co-designed an AI-powered in-store scanning concept linking customer app profiles with personalized product recommendations across 2,000+ SKUs.",
+          "Built a business case and financial model projecting 35% higher conversion, 40% fewer returns, and a $3.85M first-year net gain against a $1.7M investment.",
+          "Mapped the customer journey and proposed a six-month rollout covering AI model development, pilot testing, and national launch."
+        ],
+        "stats": [
+          { "value": "+35%", "label": "conversion" },
+          { "value": "−40%", "label": "returns" },
+          { "value": "$3.85M", "label": "first-year net gain" }
+        ],
+        "wide": true
+      },
+      {
+        "tag": "Personal Project",
+        "title": "Personal AI Agent for Workflow Efficiency",
+        "points": [
+          "Built a personal AI agent with KNIME, Python, and Claude to streamline personal tasks and improve workflow efficiency."
+        ],
+        "stats": [],
+        "wide": false
+      },
+      {
+        "tag": "Personal Project",
+        "title": "DataClicks Analytics: Personal Business Plan",
+        "points": [
+          "Developed a personal business plan for a proposed DFW analytics consulting venture, including SWOT analysis, target market research, pricing, and go-to-market strategy."
+        ],
+        "stats": [],
+        "wide": false
+      },
+      {
+        "tag": "Academic Project · UTD",
+        "title": "SQL and Relational Database Project",
+        "points": [
+          "Completed an academic SQL project applying relational database concepts to organize and retrieve structured data."
+        ],
+        "stats": [],
+        "wide": false
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills",
+    "groups": [
+      { "name": "AI Tools", "items": ["Claude", "ChatGPT", "Google Gemini", "NVIDIA Nemotron", "MS Copilot", "GitHub Copilot", "Perplexity", "NotebookLM", "KNIME", "Zerve"] },
+      { "name": "AI Skills", "items": ["AI agent development", "LLM API integration", "Prompt engineering", "Synthetic data generation", "Privacy-by-design"] },
+      { "name": "Technical", "items": ["MS Project", "MS Excel", "SQL", "PostgreSQL", "MongoDB", "Python", "Tableau", "Power BI"] },
+      { "name": "Certification & Languages", "items": ["Illinois Health Insurance Producer License", "English", "Spanish"] }
+    ]
+  },
+  "photos": {
+    "title": "Photos",
+    "text": "Moments from hackathons, events, organizations, and campus life at UT Dallas.",
+    "categories": [
+      { "name": "HackUTD", "photos": [ { "src": "/img/hackutd.jpg", "caption": "My very first hackathon, at HackUTD 2026: 24 hours, endless ideas, and very little sleep. My team built Safe Signal, a real-time scam call detector that spots AI-generated voices and scam language within the first seconds of a call, then helps the user block and report the number." } ] },
+      { "name": "Events", "photos": [] },
+      { "name": "Organizations", "photos": [] },
+      { "name": "Campus Life", "photos": [ { "src": "/img/comets.jpg", "caption": "Attending UTD career fairs, learning about opportunities across DFW, and meeting new and amazing people along the way." } ] }
+    ]
+  },
+  "contact": {
+    "title": "Let's connect",
+    "text": "I'm open to internships and full-time opportunities. Reach out by email or on LinkedIn.",
+    "footer": "Dallas, Texas"
+  }
+}

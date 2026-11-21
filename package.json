@@ -1,0 +1,14 @@
+{
+  "name": "melanie-arenas-website",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Personal portfolio with a password-protected editor at /admin",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "set-password": "node scripts/set-password.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,13 @@
+# Secrets: never commit these
+.env
+config/
+
+# Live site content and uploaded photos (back these up; they are your edits)
+data/
+
+.DS_Store
+node_modules/
+
+# Original photo files (not used by the site)
+photoo.png
+photooo.png

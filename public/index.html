@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melanie Arenas</title>
+  <meta name="description" content="Melanie Arenas: Business Analytics and AI student at The University of Texas at Dallas." />
+
+  <!-- Set the theme before first paint so there is no flash -->
+  <script nonce="{{NONCE}}">
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================= Light mode: "white galaxy" ================= */
+    :root {
+      --bg: #f8f6fd;
+      --surface: rgba(255, 255, 255, 0.74);
+      --surface-solid: #ffffff;
+      --surface-2: rgba(243, 239, 252, 0.85);
+      --text: #1f1d2b;
+      --muted: #4f4d63;
+      --faint: #6c6984;
+      --border: rgba(146, 128, 214, 0.22);
+      --accent: #b4500f;
+      --accent-2: #0f5a3d;
+      --accent-soft: rgba(180, 80, 15, 0.09);
+      --label: #6a4fc0;
+      --star-rgb: 132, 112, 206;
+      --shadow: 0 1px 2px rgba(80, 60, 140, 0.05), 0 12px 32px -10px rgba(132, 108, 220, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --shadow-hover: 0 1px 2px rgba(80, 60, 140, 0.06), 0 18px 44px -12px rgba(150, 110, 230, 0.32), 0 0 0 1px rgba(196, 170, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --btn-primary: linear-gradient(135deg, #b4500f, #a8406a);
+      --radius: 16px;
+      --max: 960px;
+      color-scheme: light;
+    }
+
+    /* ================= Dark mode (unchanged look) ================= */
+    [data-theme="dark"] {
+      --bg: #070b18;
+      --surface: rgba(18, 24, 44, 0.72);
+      --surface-solid: #121a2e;
+      --surface-2: rgba(30, 38, 64, 0.7);
+      --text: #e8eaf2;
+      --muted: #a3a9bb;
+      --faint: #737a90;
+      --border: rgba(255, 255, 255, 0.09);
+      --accent: #f5934a;
+      --accent-2: #6fd3a8;
+      --accent-soft: rgba(245, 147, 74, 0.14);
+      --label: #f5934a;
+      --star-rgb: 255, 255, 255;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+      --shadow-hover: var(--shadow);
+      --btn-primary: #f5934a;
+      color-scheme: dark;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      overflow-x: hidden;
+    }
+    [data-theme="dark"] body {
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(40, 52, 110, 0.35), transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(60, 30, 90, 0.25), transparent 50%),
+        var(--bg);
+      background-attachment: fixed;
+    }
+    a { color: inherit; }
+
+    /* ---------- Sky layers ---------- */
+    #nebula, #stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; transition: opacity 0.6s ease; }
+    #nebula {
+      background:
+        radial-gradient(ellipse 55% 45% at 8% 6%, rgba(205, 188, 255, 0.55), transparent 70%),
+        radial-gradient(ellipse 45% 40% at 92% 14%, rgba(255, 199, 225, 0.45), transparent 70%),
+        radial-gradient(ellipse 55% 45% at 78% 88%, rgba(188, 214, 255, 0.50), transparent 70%),
+        radial-gradient(ellipse 40% 35% at 14% 78%, rgba(255, 222, 238, 0.55), transparent 70%),
+        radial-gradient(ellipse 35% 30% at 50% 45%, rgba(236, 228, 255, 0.45), transparent 70%),
+        linear-gradient(180deg, #fbfaff 0%, #f6f3fd 50%, #faf6fb 100%);
+    }
+    [data-theme="dark"] #nebula { opacity: 0; }
+
+    .star { position: absolute; border-radius: 50%; background: rgb(var(--star-rgb)); }
+    [data-theme="dark"] .star.big { box-shadow: 0 0 4px rgba(255, 255, 255, 0.6); }
+    [data-theme="light"] .star.big { box-shadow: 0 0 6px rgba(var(--star-rgb), 0.5); }
+    .star.twinkle { animation: twinkle var(--dur, 6s) ease-in-out infinite; animation-delay: var(--delay, 0s); }
+    @keyframes twinkle { 0%, 100% { opacity: var(--o, 0.6); } 50% { opacity: 0.08; } }
+
+    .sparkle { position: absolute; color: var(--c); opacity: 0; animation: sparkle var(--dur, 7s) ease-in-out infinite; animation-delay: var(--delay, 0s); }
+    .sparkle svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 0 4px currentColor); }
+    @keyframes sparkle { 0%, 100% { opacity: 0.15; transform: scale(0.7) rotate(0deg); } 50% { opacity: 0.85; transform: scale(1) rotate(20deg); } }
+    [data-theme="dark"] .sparkle { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .star.twinkle, .sparkle { animation: none; }
+      .sparkle { opacity: 0.5; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ---------- Layout ---------- */
+    .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    header.nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: saturate(160%) blur(12px);
+      -webkit-backdrop-filter: saturate(160%) blur(12px);
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .brand { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.15rem; text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { display: block; padding: 6px 10px; border-radius: 999px; text-decoration: none; font-size: 0.88rem; color: var(--muted); transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--text); background: var(--surface-2); }
+
+    .icon-btn {
+      width: 40px; height: 40px; display: grid; place-items: center; flex: none;
+      border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      cursor: pointer; transition: transform 0.2s ease, background 0.3s, opacity 0.2s;
+    }
+    .icon-btn:hover:not(:disabled) { transform: translateY(-1px); }
+    .icon-btn:disabled { opacity: 0.35; cursor: default; }
+    .icon-btn svg { width: 18px; height: 18px; }
+    #themeToggle:hover { transform: rotate(-12deg); }
+    :focus-visible { outline: 2px solid var(--label); outline-offset: 2px; }
+    .icon-sun { display: none; }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
+
+    /* ---------- Hero ---------- */
+    .hero { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 56px; padding: 88px 0 72px; }
+    .avatar {
+      width: 220px; height: 220px; border-radius: 50%; object-fit: cover; object-position: 50% 22%;
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 1px var(--border), 0 0 0 10px rgba(255, 255, 255, 0.45), 0 0 70px rgba(186, 156, 255, 0.45), 0 0 120px rgba(255, 190, 220, 0.3);
+    }
+    [data-theme="dark"] .avatar { border-color: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 0 60px rgba(120, 140, 255, 0.18); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500;
+      color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 10%, transparent);
+      padding: 4px 12px; border-radius: 999px; margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .hero h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 12px; }
+    [data-theme="light"] .hero h1 { background: linear-gradient(120deg, #1f1d2b 30%, #5b3fa8 75%, #a8406a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero .role { font-size: 1.15rem; font-weight: 500; margin: 0 0 14px; }
+    .hero .intro { color: var(--muted); max-width: 52ch; margin: 0 0 28px; }
+
+    .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 999px;
+      font: inherit; font-weight: 500; font-size: 0.95rem; text-decoration: none; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      transition: transform 0.15s ease, box-shadow 0.2s, border-color 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .btn svg { width: 16px; height: 16px; }
+    .btn.primary { background: var(--btn-primary); border-color: transparent; color: #fff; }
+    [data-theme="dark"] .btn.primary { color: #1a0d03; }
+
+    /* ---------- Sections & cards ---------- */
+    section.block { padding: 56px 0; border-top: 1px solid var(--border); }
+    .section-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--label); margin: 0 0 6px; }
+    .section-title { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(1.6rem, 3.5vw, 2rem); letter-spacing: -0.01em; margin: 0 0 6px; }
+    .section-sub { color: var(--muted); margin: 0 0 22px; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; box-shadow: var(--shadow);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.25s;
+    }
+    ul.points { margin: 0; padding-left: 18px; color: var(--muted); }
+    ul.points li { margin-bottom: 6px; }
+    ul.points li:last-child { margin-bottom: 0; }
+    ul.points li::marker { color: var(--accent); }
+    strong { color: var(--text); font-weight: 600; }
+
+    /* ---------- Carousel (shared by sections + photos) ---------- */
+    .carousel-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; padding: 4px 2px; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: none; font: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer; white-space: nowrap;
+      padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--muted); transition: all 0.2s;
+    }
+    .tab:hover { color: var(--text); }
+    .tab[aria-selected="true"] { color: var(--text); border-color: color-mix(in srgb, var(--label) 55%, transparent); box-shadow: var(--shadow); }
+    [data-theme="light"] .tab[aria-selected="true"] { background: linear-gradient(135deg, #fff, #f3edff); }
+    [data-theme="dark"] .tab[aria-selected="true"] { background: var(--surface-2); color: var(--accent); }
+    .arrows { display: flex; gap: 8px; flex: none; }
+
+    .track {
+      display: flex; align-items: flex-start; overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+      transition: height 0.35s ease; cursor: grab;
+      margin: -12px; padding: 12px 0;     /* room for card glow */
+    }
+    .track::-webkit-scrollbar { display: none; }
+    .track.dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; -webkit-user-select: none; }
+    .slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; padding: 0 12px; }
+    .dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+    .dot { width: 8px; height: 8px; padding: 0; border-radius: 999px; border: 0; cursor: pointer; background: color-mix(in srgb, var(--faint) 45%, transparent); transition: all 0.25s; }
+    .dot[aria-current="true"] { width: 24px; background: var(--label); }
+    .swipe-hint { text-align: center; font-size: 0.8rem; color: var(--faint); margin-top: 8px; }
+    @media (hover: hover) and (pointer: fine) { .swipe-hint { display: none; } }
+
+    /* About */
+    .about-text p { margin: 0 0 14px; color: var(--muted); font-size: 1.04rem; max-width: 68ch; }
+    .info-note { margin-top: 18px; display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; color: var(--muted); }
+    .info-note svg { flex: none; width: 18px; height: 18px; margin-top: 2px; color: var(--accent-2); }
+
+    /* Education */
+    .edu-card { position: relative; overflow: hidden; }
+    .edu-card h3 { margin: 0 0 2px; font-size: 1.15rem; padding-right: 90px; }
+    .edu-card .degree { margin: 0; color: var(--muted); font-style: italic; }
+    .edu-card .date { display: inline-block; margin-top: 10px; font-size: 0.88rem; color: var(--accent-2); font-weight: 500; }
+    .edu-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--border); }
+    .edu-details div { font-size: 0.94rem; color: var(--muted); }
+    .edu-details b { display: block; color: var(--text); font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .utd-mark {
+      position: absolute; right: 22px; top: 18px; text-align: right; line-height: 0.85;
+      font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: var(--accent-2);
+      opacity: 0.1; pointer-events: none; user-select: none; transition: opacity 0.4s;
+    }
+    .utd-mark .big { display: block; font-size: 3.4rem; letter-spacing: -0.03em; }
+    .utd-mark .small { display: block; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 4px; color: var(--accent); font-family: 'Inter', sans-serif; }
+    [data-theme="dark"] .utd-mark { opacity: 0; }
+    .edu-card > *:not(.utd-mark) { position: relative; }
+
+    /* Experience */
+    .timeline { display: grid; gap: 18px; }
+    .job { display: grid; grid-template-columns: 170px 1fr; gap: 24px; }
+    .job .when { font-size: 0.88rem; color: var(--faint); padding-top: 26px; }
+    .job h3 { margin: 0; font-size: 1.1rem; }
+    .job .meta { margin: 2px 0 12px; color: var(--accent); font-weight: 500; font-size: 0.95rem; }
+    .job .meta span { color: var(--faint); font-weight: 400; }
+
+    /* Projects: wide cards take a full row, compact cards share rows and stay equal height */
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .project { display: flex; flex-direction: column; }
+    .project.wide { grid-column: 1 / -1; }
+    .project:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .tag { align-self: flex-start; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 12px; }
+    .project h3 { margin: 0 0 10px; font-size: 1.06rem; line-height: 1.35; }
+    .project p { margin: 0; color: var(--muted); font-size: 0.94rem; }
+    .project ul.points { font-size: 0.94rem; }
+    .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .stat { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; font-size: 0.82rem; color: var(--muted); }
+    .stat b { display: block; color: var(--text); font-size: 1.05rem; }
+    .project-link {
+      align-self: flex-start; margin-top: auto; padding-top: 16px;
+      font-size: 0.9rem; font-weight: 600; color: var(--label); text-decoration: none;
+    }
+    .project-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .skill-group h3 { margin: 0 0 14px; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); font-weight: 600; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+    .chips li { font-size: 0.88rem; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); }
+
+    /* Photos */
+    /* Each photo is a card: photo on the left, caption on the right (stacked only on phones, see below) */
+    .gallery { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    .card.photo-card { margin: 0; padding: 0; overflow: hidden; display: flex; flex-direction: row; align-items: stretch; }
+    .photo-card .thumb { flex: 0 0 56%; border-bottom: 0; border-right: 1px solid var(--border); }
+    .photo-card figcaption { flex: 1; min-width: 0; align-self: center; }
+    @media (max-width: 820px) { .photo-card .thumb { flex-basis: 50%; } }
+    @media (max-width: 639px) {
+      .card.photo-card { flex-direction: column; }
+      .photo-card .thumb { flex: none; border-right: 0; border-bottom: 1px solid var(--border); }
+      .photo-card figcaption { align-self: stretch; }
+    }
+    .photo-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .thumb {
+      position: relative; display: block; width: 100%; padding: 0; border: 0; border-bottom: 1px solid var(--border);
+      overflow: hidden; cursor: zoom-in; background: var(--surface-2); aspect-ratio: 4 / 3;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; -webkit-user-drag: none; }
+    .thumb:hover img { transform: scale(1.04); }
+    .photo-card figcaption { padding: 24px 28px; font-size: 1rem; line-height: 1.65; color: var(--muted); }
+    @media (max-width: 820px) { .photo-card figcaption { padding: 20px 22px; font-size: 0.94rem; } }
+    .photo-card figcaption::before {
+      content: ""; display: block; width: 28px; height: 3px; border-radius: 3px; margin-bottom: 12px;
+      background: linear-gradient(90deg, var(--accent), var(--label));
+    }
+    /* Typewriter: the untyped part stays in the layout (transparent), so the box never changes size */
+    .tw-rest { color: transparent; }
+    .tw-cursor {
+      display: inline-block; width: 0; height: 1.1em; margin-right: -2px; vertical-align: -0.18em;
+      border-left: 2px solid var(--label); animation: tw-blink 0.9s steps(1) infinite;
+    }
+    @keyframes tw-blink { 50% { border-color: transparent; } }
+
+    .lightbox {
+      position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center;
+      background: rgba(12, 10, 28, 0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      padding: 56px 16px; touch-action: pan-y;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox figure { margin: 0; text-align: center; max-width: 100%; }
+    .lightbox img { max-width: min(1100px, 100%); max-height: calc(100vh - 160px); border-radius: 12px; display: block; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .lightbox figcaption { color: #e8e6f5; margin: 14px auto 0; font-size: 0.95rem; line-height: 1.6; max-width: 62ch; }
+    .lightbox .icon-btn { position: absolute; background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.2); }
+    .lb-close { top: 14px; right: 14px; }
+    .lb-prev { left: 14px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 14px; top: 50%; transform: translateY(-50%); }
+    .lightbox .lb-prev:hover:not(:disabled), .lightbox .lb-next:hover:not(:disabled) { transform: translateY(-50%); }
+
+    /* Contact */
+    .contact { text-align: center; padding: 48px 24px; }
+    .contact p { color: var(--muted); max-width: 46ch; margin: 10px auto 26px; }
+    .contact .buttons { justify-content: center; }
+
+    footer { position: relative; z-index: 1; text-align: center; padding: 32px 24px 48px; color: var(--faint); font-size: 0.85rem; }
+
+    .admin-pill {
+      position: fixed; right: 16px; bottom: 16px; z-index: 30; display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 999px; text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      background: var(--surface-solid); border: 1px solid var(--border); box-shadow: var(--shadow-hover);
+    }
+
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .track { transition: none; } }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) { .nav-links { display: none; } }
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; text-align: center; gap: 28px; padding: 48px 0 48px; }
+      .avatar { width: 168px; height: 168px; margin: 0 auto; }
+      .hero .intro { margin-left: auto; margin-right: auto; }
+      .buttons { justify-content: center; }
+      .skills { grid-template-columns: 1fr; }
+      .job { grid-template-columns: 1fr; gap: 0; }
+      .job .when { padding: 0 0 8px; }
+    }
+    @media (max-width: 560px) {
+      .arrows { display: none; }
+      .gallery { gap: 16px; }
+      .photo-card figcaption { padding: 14px 16px 18px; font-size: 0.92rem; }
+    }
+    @media (max-width: 480px) {
+      .wrap { padding: 0 16px; }
+      section.block { padding: 44px 0; }
+      .card { padding: 20px; }
+      .btn { padding: 10px 16px; font-size: 0.9rem; }
+      .utd-mark .big { font-size: 2.6rem; }
+      .edu-card h3 { padding-right: 84px; }
+      .lb-prev, .lb-next { display: none !important; }
+    }
+  </style>
+</head>
+<body data-admin="{{ADMIN}}">
+  <div id="nebula" aria-hidden="true"></div>
+  <div id="stars" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand" id="brand">Melanie Arenas<span>.</span></a>
+      <nav aria-label="Sections">
+        <ul class="nav-links">
+          <li><a href="#education">Education</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#photos">Photos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap" id="top"></main>
+  <footer id="footer"></footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="icon-btn lb-close" type="button" aria-label="Close"></button>
+    <button class="icon-btn lb-prev" type="button" aria-label="Previous photo"></button>
+    <button class="icon-btn lb-next" type="button" aria-label="Next photo"></button>
+    <figure><img alt="" /><figcaption></figcaption></figure>
+  </div>
+
+  <script id="site-data" type="application/json">{{DATA}}</script>
+
+  <script nonce="{{NONCE}}">
+  (function () {
+    'use strict';
+    var data = JSON.parse(document.getElementById('site-data').textContent);
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- tiny DOM helpers (all text goes in via textContent, never HTML) ----------
+    function el(tag, props) {
+      var e = document.createElement(tag);
+      props = props || {};
+      Object.keys(props).forEach(function (k) {
+        var v = props[k];
+        if (v == null || v === false) return;
+        if (k === 'class') e.className = v;
+        else if (k === 'text') e.textContent = v;
+        else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), v);
+        else e.setAttribute(k, v === true ? '' : v);
+      });
+      for (var i = 2; i < arguments.length; i++) append(e, arguments[i]);
+      return e;
+    }
+    function append(parent, kid) {
+      if (kid == null || kid === false) return;
+      if (Array.isArray(kid)) { kid.forEach(function (k) { append(parent, k); }); return; }
+      parent.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    }
+    // "**bold**" in text becomes <strong>
+    // "**bold**" becomes <strong>, "*italic*" becomes <em>
+    function rich(text) {
+      var frag = document.createDocumentFragment();
+      var re = /\*\*(.+?)\*\*|\*([^*\s][^*]*?)\*/g, s = String(text || ''), last = 0, m;
+      while ((m = re.exec(s))) {
+        if (m.index > last) frag.append(document.createTextNode(s.slice(last, m.index)));
+        frag.append(m[1] != null ? el('strong', { text: m[1] }) : el('em', { text: m[2] }));
+        last = re.lastIndex;
+      }
+      if (last < s.length) frag.append(document.createTextNode(s.slice(last)));
+      return frag;
+    }
+    function safeUrl(u) {
+      u = String(u || '').trim();
+      return /^(https?:\/\/|mailto:)/i.test(u) || /^\/(?!\/)/.test(u) ? u : '#';
+    }
+    var ICONS = {
+      doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>',
+      mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
+      linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>',
+      check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>',
+      left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
+      right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
+      close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+      edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+      sparkle: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z"/></svg>'
+    };
+    function icon(name) { var t = document.createElement('template'); t.innerHTML = ICONS[name]; return t.content.firstChild; }
+
+    // ---------- build the page ----------
+    var h = data.hero || {};
+    var main = document.getElementById('top');
+    var carousels = {};
+
+    function heroButtons(includeContact) {
+      return el('div', { class: 'buttons' },
+        h.resume && el('a', { class: 'btn primary', href: safeUrl(h.resume), target: '_blank', rel: 'noopener' }, icon('doc'), 'View resume'),
+        includeContact && el('a', { class: 'btn', href: '#contact' }, icon('mail'), 'Contact me'),
+        h.linkedin && el('a', { class: 'btn', href: safeUrl(h.linkedin), target: '_blank', rel: 'noopener' }, icon('linkedin'), 'LinkedIn')
+      );
+    }
+
+    main.append(el('section', { class: 'hero' },
+      h.photo && el('img', { class: 'avatar', src: safeUrl(h.photo), alt: 'Portrait of ' + (h.name || ''), width: 220, height: 220 }),
+      el('div', null,
+        h.eyebrow && el('span', { class: 'eyebrow', text: h.eyebrow }),
+        el('h1', { text: h.name }),
+        el('p', { class: 'role', text: h.role }),
+        el('p', { class: 'intro' }, rich(h.intro)),
+        heroButtons(true)
+      )
+    ));
+    document.getElementById('brand').firstChild.textContent = h.name || '';
+    document.title = h.name || document.title;
+
+    // Slide builders
+    var a = data.about || {}, ed = data.education || {}, ex = data.experience || {}, pr = data.projects || {}, sk = data.skills || {};
+
+    function slideHead(title) { return el('h2', { class: 'section-title', text: title }); }
+
+    var slides = [
+      { id: 'about', label: a.title || 'About Me', node: el('div', { class: 'about-text' },
+        slideHead(a.title || 'About Me'),
+        (a.paragraphs || []).map(function (p) { return el('p', null, rich(p)); }),
+        a.note && el('div', { class: 'info-note' }, icon('check'), a.note)
+      ) },
+      { id: 'education', label: ed.title || 'Education', node: el('div', null,
+        slideHead(ed.title || 'Education'),
+        el('div', { class: 'card edu-card' },
+          el('div', { class: 'utd-mark', 'aria-hidden': 'true' }, el('span', { class: 'big', text: 'UTD' }), el('span', { class: 'small', text: 'UT Dallas' })),
+          el('h3', { text: ed.school }),
+          el('p', { class: 'degree', text: ed.degree }),
+          ed.date && el('span', { class: 'date', text: ed.date }),
+          (ed.details || []).length ? el('div', { class: 'edu-details' }, ed.details.map(function (d) { return el('div', null, el('b', { text: d.label }), d.text); })) : null
+        )
+      ) },
+      { id: 'experience', label: ex.title || 'Experience', node: el('div', null,
+        slideHead(ex.title || 'Experience'),
+        el('div', { class: 'timeline' }, (ex.jobs || []).map(function (j) {
+          return el('div', { class: 'job' },
+            el('div', { class: 'when', text: j.dates }),
+            el('div', { class: 'card' },
+              el('h3', { text: j.title }),
+              el('p', { class: 'meta' }, j.company, j.location && el('span', { text: ' · ' + j.location })),
+              (j.points || []).length ? el('ul', { class: 'points' }, j.points.map(function (p) { return el('li', null, rich(p)); })) : null
+            )
+          );
+        }))
+      ) },
+      { id: 'projects', label: pr.title || 'Projects', node: el('div', null,
+        slideHead(pr.title || 'Projects'),
+        el('div', { class: 'projects' }, (pr.items || []).map(function (p) {
+          var pts = p.points || [];
+          return el('article', { class: 'card project' + (p.wide ? ' wide' : '') },
+            p.tag && el('span', { class: 'tag', text: p.tag }),
+            el('h3', { text: p.title }),
+            pts.length === 1 ? el('p', null, rich(pts[0])) :
+              pts.length ? el('ul', { class: 'points' }, pts.map(function (t) { return el('li', null, rich(t)); })) : null,
+            (p.stats || []).length ? el('div', { class: 'stats' }, p.stats.map(function (s) { return el('div', { class: 'stat' }, el('b', { text: s.value }), s.label); })) : null,
+            p.link && safeUrl(p.link) !== '#' && el('a', { class: 'project-link', href: safeUrl(p.link), target: '_blank', rel: 'noopener' },
+              (p.linkText || 'View project'), el('span', { 'aria-hidden': 'true', text: ' ↗' }))
+          );
+        }))
+      ) },
+      { id: 'skills', label: sk.title || 'Skills', node: el('div', null,
+        slideHead(sk.title || 'Skills'),
+        el('div', { class: 'skills' }, (sk.groups || []).map(function (g) {
+          return el('div', { class: 'card skill-group' }, el('h3', { text: g.name }),
+            el('ul', { class: 'chips' }, (g.items || []).map(function (s) { return el('li', { text: s }); })));
+        }))
+      ) }
+    ];
+
+    // Order comes from the stored content (editable in /admin); unknown or repeated ids are ignored.
+    var order = Array.isArray(data.sectionOrder) && data.sectionOrder.length ? data.sectionOrder : ['education', 'about', 'skills', 'projects', 'experience'];
+    var seen = {};
+    slides = order.map(function (id) { return slides.filter(function (s) { return s.id === id; })[0]; })
+      .filter(function (s) { if (!s || seen[s.id]) return false; seen[s.id] = true; return true; })
+      .concat(slides.filter(function (s) { return order.indexOf(s.id) === -1; }));
+
+    // Keep the top menu in the same order as the carousel
+    var navList = document.querySelector('.nav-links');
+    var navAnchor = navList.querySelector('a[href="#photos"]').parentNode;
+    slides.forEach(function (s) {
+      var link = navList.querySelector('a[href="#' + s.id + '"]');
+      if (link) navList.insertBefore(link.parentNode, navAnchor);
+    });
+
+    main.append(buildCarousel('sections', 'Portfolio sections', slides));
+
+    // Photos (only categories that have photos are shown publicly)
+    var ph = data.photos || {};
+    var cats = (ph.categories || []).filter(function (c) { return (c.photos || []).length; });
+    if (cats.length) {
+      var photoSlides = cats.map(function (c, ci) {
+        return { id: 'photos-' + ci, label: c.name, node: el('div', { class: 'gallery' }, c.photos.map(function (p, pi) {
+          return el('figure', { class: 'card photo-card' },
+            el('button', { type: 'button', class: 'thumb', 'aria-label': 'Open photo larger', onclick: function () { openLightbox(c.photos, pi); } },
+              el('img', { src: safeUrl(p.src), alt: p.caption || c.name, loading: 'lazy', draggable: 'false' })
+            ),
+            p.caption && el('figcaption', { class: 'tw', text: p.caption })
+          );
+        })) };
+      });
+      main.append(el('section', { class: 'block reveal', id: 'photos' },
+        el('p', { class: 'section-label', text: 'Gallery' }),
+        el('h2', { class: 'section-title', text: ph.title || 'Photos' }),
+        ph.text && el('p', { class: 'section-sub', text: ph.text }),
+        buildCarousel('photo-cats', 'Photo categories', photoSlides, true)
+      ));
+    } else {
+      var navPhotos = document.querySelector('.nav-links a[href="#photos"]');
+      if (navPhotos) navPhotos.parentNode.remove();
+    }
+
+    var c = data.contact || {};
+    main.append(el('section', { class: 'block reveal', id: 'contact' },
+      el('div', { class: 'card contact' },
+        el('p', { class: 'section-label', text: 'Contact' }),
+        el('h2', { class: 'section-title', text: c.title }),
+        el('p', null, rich(c.text)),
+        el('div', { class: 'buttons' },
+          h.email && el('a', { class: 'btn primary', href: 'mailto:' + h.email }, icon('mail'), h.email),
+          h.linkedin && el('a', { class: 'btn', href: safeUrl(h.linkedin), target: '_blank', rel: 'noopener' }, icon('linkedin'), 'LinkedIn'),
+          h.resume && el('a', { class: 'btn', href: safeUrl(h.resume), target: '_blank', rel: 'noopener' }, 'View resume')
+        )
+      )
+    ));
+    document.getElementById('footer').textContent = '© ' + new Date().getFullYear() + ' ' + (h.name || '') + (c.footer ? ' · ' + c.footer : '');
+
+    if (document.body.dataset.admin === '1') {
+      document.body.append(el('a', { class: 'admin-pill', href: '/admin' }, icon('edit'), 'Edit site'));
+    }
+
+    // ---------- carousel ----------
+    function buildCarousel(id, label, items, isPhotos) {
+      var tabs = el('div', { class: 'tabs', role: 'tablist', 'aria-label': label });
+      var prev = el('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Previous' }, icon('left'));
+      var next = el('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Next' }, icon('right'));
+      var track = el('div', { class: 'track', 'aria-live': 'polite' });
+      var dots = el('div', { class: 'dots' });
+      var root = el('section', { class: isPhotos ? 'carousel' : 'block carousel reveal', id: id, 'aria-roledescription': 'carousel', 'aria-label': label },
+        el('div', { class: 'carousel-bar' }, tabs, el('div', { class: 'arrows' }, prev, next)),
+        track, dots, el('p', { class: 'swipe-hint', text: 'Swipe to explore →' }));
+
+      var slideEls = items.map(function (it, i) {
+        var s = el('div', { class: 'slide', id: it.id, role: 'tabpanel', 'aria-label': it.label }, it.node);
+        track.append(s);
+        tabs.append(el('button', { class: 'tab', type: 'button', role: 'tab', 'aria-controls': it.id, text: it.label, onclick: function () { goTo(i); } }));
+        dots.append(el('button', { class: 'dot', type: 'button', 'aria-label': 'Show ' + it.label, onclick: function () { goTo(i); } }));
+        return s;
+      });
+      var index = -1;
+
+      function fitHeight() { if (slideEls[index]) track.style.height = slideEls[index].offsetHeight + 24 + 'px'; }
+      function setActive(i) {
+        if (i === index) return;
+        index = i;
+        Array.prototype.forEach.call(tabs.children, function (t, j) { t.setAttribute('aria-selected', j === i ? 'true' : 'false'); t.tabIndex = j === i ? 0 : -1; });
+        Array.prototype.forEach.call(dots.children, function (d, j) { d.setAttribute('aria-current', j === i ? 'true' : 'false'); });
+        slideEls.forEach(function (s, j) { s.setAttribute('aria-hidden', j === i ? 'false' : 'true'); s.inert = j !== i; });
+        prev.disabled = i === 0;
+        next.disabled = i === slideEls.length - 1;
+        var tab = tabs.children[i];
+        tabs.scrollTo({ left: tab.offsetLeft - tabs.clientWidth / 2 + tab.offsetWidth / 2, behavior: reduceMotion ? 'auto' : 'smooth' });
+        fitHeight();
+      }
+      function goTo(i, instant) {
+        i = Math.max(0, Math.min(slideEls.length - 1, i));
+        track.scrollTo({ left: i * track.clientWidth, behavior: instant || reduceMotion ? 'auto' : 'smooth' });
+        setActive(i);
+      }
+      prev.addEventListener('click', function () { goTo(index - 1); });
+      next.addEventListener('click', function () { goTo(index + 1); });
+
+      // Touch and trackpad swipes are native scrolling; this keeps tabs/dots in sync.
+      var ticking = false;
+      track.addEventListener('scroll', function () {
+        if (ticking || dragging) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          setActive(Math.round(track.scrollLeft / track.clientWidth));
+        });
+      }, { passive: true });
+
+      // Mouse drag
+      var drag = null, dragging = false, lastDragEnd = 0;
+      track.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        drag = { x: e.clientX, left: track.scrollLeft, start: index };
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!drag) return;
+        var dx = e.clientX - drag.x;
+        if (!dragging) {
+          if (Math.abs(dx) < 6) return;
+          dragging = true;
+          track.classList.add('dragging');
+          var sel = window.getSelection && window.getSelection(); if (sel) sel.removeAllRanges();
+        }
+        track.scrollLeft = drag.left - dx;
+      });
+      window.addEventListener('pointerup', function (e) {
+        if (!drag) return;
+        var d = drag; drag = null;
+        if (!dragging) return;
+        dragging = false;
+        lastDragEnd = Date.now();
+        track.classList.remove('dragging');
+        var dx = e.clientX - d.x, w = track.clientWidth, target = d.start;
+        if (dx < -w * 0.12) target = d.start + 1; else if (dx > w * 0.12) target = d.start - 1;
+        goTo(target);
+      });
+      track.addEventListener('click', function (e) {
+        if (Date.now() - lastDragEnd < 80) { e.preventDefault(); e.stopPropagation(); }
+      }, true);
+
+      root.addEventListener('keydown', function (e) {
+        if (!e.target.closest('.tabs, .track, .arrows')) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1); if (e.target.closest('.tabs')) tabs.children[index].focus(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(index - 1); if (e.target.closest('.tabs')) tabs.children[index].focus(); }
+      });
+
+      if ('ResizeObserver' in window) new ResizeObserver(fitHeight).observe(track);
+      slideEls.forEach(function (s) { if ('ResizeObserver' in window) new ResizeObserver(function () { if (s === slideEls[index]) fitHeight(); }).observe(s); });
+      window.addEventListener('resize', function () { track.scrollLeft = index * track.clientWidth; fitHeight(); });
+
+      carousels[id] = { root: root, ids: items.map(function (it) { return it.id; }), goTo: goTo };
+      requestAnimationFrame(function () { setActive(0); });
+      return root;
+    }
+
+    // Links like #education open the right slide
+    function openFromHash(hash, smooth) {
+      var id = (hash || '').replace('#', '');
+      if (!id) return false;
+      for (var key in carousels) {
+        var cz = carousels[key], i = cz.ids.indexOf(id);
+        if (i !== -1) {
+          cz.goTo(i, true);
+          cz.root.classList.add('visible');
+          cz.root.scrollIntoView({ behavior: smooth && !reduceMotion ? 'smooth' : 'auto', block: 'start' });
+          return true;
+        }
+      }
+      return false;
+    }
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (link && openFromHash(link.getAttribute('href'), true)) {
+        e.preventDefault();
+        history.replaceState(null, '', link.getAttribute('href'));
+      }
+    });
+    if (location.hash) requestAnimationFrame(function () { requestAnimationFrame(function () { openFromHash(location.hash, false); }); });
+
+    // ---------- lightbox ----------
+    var lb = document.getElementById('lightbox');
+    var lbImg = lb.querySelector('img'), lbCap = lb.querySelector('figcaption');
+    var lbPrev = lb.querySelector('.lb-prev'), lbNext = lb.querySelector('.lb-next'), lbClose = lb.querySelector('.lb-close');
+    lbPrev.append(icon('left')); lbNext.append(icon('right')); lbClose.append(icon('close'));
+    var lbList = [], lbIndex = 0, lbReturn = null;
+    function showLb(i) {
+      lbIndex = (i + lbList.length) % lbList.length;
+      var p = lbList[lbIndex];
+      lbImg.src = safeUrl(p.src);
+      lbImg.alt = p.caption || 'Photo';
+      lbCap.textContent = p.caption || '';
+      lbPrev.style.display = lbNext.style.display = lbList.length > 1 ? '' : 'none';
+    }
+    function openLightbox(list, i) {
+      lbList = list; lbReturn = document.activeElement;
+      showLb(i);
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+    function closeLightbox() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lbReturn) lbReturn.focus();
+    }
+    lbPrev.addEventListener('click', function () { showLb(lbIndex - 1); });
+    lbNext.addEventListener('click', function () { showLb(lbIndex + 1); });
+    lbClose.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showLb(lbIndex - 1);
+      if (e.key === 'ArrowRight') showLb(lbIndex + 1);
+      if (e.key === 'Tab') { // keep focus inside the viewer
+        var f = [lbClose, lbPrev, lbNext].filter(function (b) { return b.style.display !== 'none'; });
+        var at = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(at + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    });
+    var lbTouch = null;
+    lb.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') lbTouch = e.clientX; });
+    lb.addEventListener('pointerup', function (e) {
+      if (lbTouch == null) return;
+      var dx = e.clientX - lbTouch; lbTouch = null;
+      if (Math.abs(dx) > 40 && lbList.length > 1) showLb(lbIndex + (dx < 0 ? 1 : -1));
+    });
+
+    // ---------- theme toggle ----------
+    var root = document.documentElement, toggle = document.getElementById('themeToggle');
+    function applyTheme(t) {
+      root.setAttribute('data-theme', t);
+      toggle.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+    applyTheme(root.getAttribute('data-theme') || 'light');
+    toggle.addEventListener('click', function () {
+      var nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      try { localStorage.setItem('theme', nextTheme); } catch (e) {}
+    });
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSystem = function (e) {
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (err) {}
+      if (!stored) applyTheme(e.matches ? 'dark' : 'light');
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onSystem); else if (mq.addListener) mq.addListener(onSystem);
+
+    // ---------- stars (both themes) + sparkles (light theme) ----------
+    (function () {
+      var sky = document.getElementById('stars');
+      var small = window.innerWidth < 600;
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < (small ? 70 : 140); i++) {
+        var s = document.createElement('span');
+        s.className = 'star';
+        var r = Math.random();
+        var size = r < 0.75 ? 1 : r < 0.95 ? 1.6 : 2.4;
+        var o = (0.15 + Math.random() * 0.55).toFixed(2);
+        s.style.width = s.style.height = size + 'px';
+        s.style.left = (Math.random() * 100).toFixed(2) + '%';
+        s.style.top = (Math.random() * 100).toFixed(2) + '%';
+        s.style.opacity = o;
+        s.style.setProperty('--o', o);
+        if (size > 2) s.classList.add('big');
+        if (Math.random() < 0.12) {
+          s.classList.add('twinkle');
+          s.style.setProperty('--dur', (4 + Math.random() * 5).toFixed(1) + 's');
+          s.style.setProperty('--delay', (-Math.random() * 8).toFixed(1) + 's');
+        }
+        frag.appendChild(s);
+      }
+      var colors = ['#b9a2ff', '#ffadd2', '#a9c8ff', '#e9c98f'];
+      for (var k = 0; k < (small ? 8 : 16); k++) {
+        var sp = document.createElement('span');
+        sp.className = 'sparkle';
+        var sz = 7 + Math.random() * 9;
+        sp.style.width = sp.style.height = sz.toFixed(1) + 'px';
+        sp.style.left = (Math.random() * 97).toFixed(2) + '%';
+        sp.style.top = (Math.random() * 97).toFixed(2) + '%';
+        sp.style.setProperty('--c', colors[k % colors.length]);
+        sp.style.setProperty('--dur', (6 + Math.random() * 6).toFixed(1) + 's');
+        sp.style.setProperty('--delay', (-Math.random() * 10).toFixed(1) + 's');
+        sp.append(icon('sparkle'));
+        frag.appendChild(sp);
+      }
+      sky.appendChild(frag);
+    })();
+
+    // ---------- reveal on scroll ----------
+    var revealEls = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) revealEls.forEach(function (e) { e.classList.add('visible'); });
+    else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
+      }, { threshold: 0.05 });
+      revealEls.forEach(function (e) { io.observe(e); });
+    }
+
+    // ---------- typewriter captions ----------
+    // Each caption types once, the first time it is actually visible (captions in other photo
+    // categories are clipped by the carousel, so they wait until you switch to them).
+    // The full text is always in the page: the untyped part is just transparent.
+    (function () {
+      var caps = document.querySelectorAll('figcaption.tw');
+      if (reduceMotion || !('IntersectionObserver' in window) || !caps.length) return;
+
+      function type(cap) {
+        var full = cap.textContent;
+        var typed = el('span', { class: 'tw-typed' });
+        var cursor = el('span', { class: 'tw-cursor', 'aria-hidden': 'true' });
+        var rest = el('span', { class: 'tw-rest', text: full });
+        cap.replaceChildren(typed, cursor, rest);
+        // ~17ms per character, sped up for long captions so each finishes within about 2.8 seconds
+        var msPerChar = Math.min(17, 2800 / full.length);
+        var start = null;
+        function frame(now) {
+          if (start === null) start = now;
+          var n = Math.min(full.length, Math.floor((now - start) / msPerChar));
+          typed.textContent = full.slice(0, n);
+          rest.textContent = full.slice(n);
+          if (n < full.length) requestAnimationFrame(frame);
+          else cap.replaceChildren(full);   // done: plain text again, cursor removed
+        }
+        requestAnimationFrame(frame);
+      }
+
+      var twIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { twIo.unobserve(en.target); type(en.target); }
+        });
+      }, { threshold: 0.6 });
+      caps.forEach(function (cap) {
+        // Hide the text until it types, without changing its size
+        cap.replaceChildren(el('span', { class: 'tw-rest', text: cap.textContent }));
+        twIo.observe(cap);
+      });
+    })();
+  })();
+  </script>
+</body>
+</html>
